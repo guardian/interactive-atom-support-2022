@@ -1,19 +1,17 @@
-// @import "enhanced_fonts"; // for when you need special font features 
+// @import "enhanced_fonts"; // for when you need special font features
 @import "fonts";
 @import "mq";
 @import "palette";
-@import "dcr_enhancer"; // default left column enhancer, works with inline, showcase and immersive weighting
-// @import "full_immersive_enhancer"; // full-width enhancer, to be used with immersive weighting. Removes left colum, sets 100vw atom width at any breakpoint
 
 /*----- Vertical scrollbar width used for sizing full viewport width elements -----*/
 root {
-    --scrollbar-width: 0;
-    --half-scrollbar-width: 0;
+  --scrollbar-width: 0;
+  --half-scrollbar-width: 0;
 }
 
 .interactive-atom {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 // uncomment to test
 // .gv-wrapper {
@@ -24,26 +22,103 @@ root {
 //     border-bottom: 1px solid #dcdcdc;
 // }
 
+.support-atom-wrapper {
+  background-color: #ffe500;
+  padding: 4px 10px 12px 10px;
+  min-height: 200px;
+  position: relative;
+  width: 100%;
+  @media (min-width: 620px) {
+    min-height: 160px;
+    width: 620px;
+    padding: 4px 10px 12px 10px;
+  }
+  &.in-app {
+    display: none;
+    height: 0;
+    min-height: unset;
+  }
+  h3,
+  h4 {
+    width: 100%;
+    margin: 0;
+    font-family: $f-serif-headline;
+    line-height: 115%;
+    font-size: 24px;
+    font-weight: 200;
+    max-width: 95%;
+    margin-top: 1px;
+    @media (min-width: 620px) {
+      max-width: 420px;
+    }
+  }
+  h3 {
+    max-width: 95%;
+    font-weight: 500;
+  }
+  a {
+    font-size: 17px;
+    font-weight: 400;
+    font-family: $f-sans-serif-text;
+    text-decoration: none;
+    color: white;
+    background-color: #052962;
+    padding: 8px 16px 10px 16px;
+    display: flex;
+    align-items: center;
+    width: max-content;
+    border-radius: 20px;
+    position: absolute;
+    bottom: 12px;
+    transition: background-color 0.3s ease;
+    &:hover {
+      cursor: pointer;
+      background-color: #02132e;
+    }
+    &:focus {
+      outline: 5px solid #0093e0;
+    }
+    svg {
+      margin-left: 8px;
+    }
+  }
+  .supporter-message {
+    display: none;
+  }
+  &.is-supporter {
+    .supporter-message {
+      display: block;
+    }
+    .non-supporter-message {
+      display: none;
+    }
+  }
+}
 
 /*----- App fixes -----*/
-.ios, .android {
-    .element--immersive {
-        @include mq($until: tablet) {
-            width: 100vw !important;
-            position: relative;
-            left: 50% !important;
-            right: 50% !important;
-            margin-left: -50vw !important;
-            margin-right: -50vw !important;
-        }
-        @include mq(tablet) {
-            transform: translateX(-20px);
-            width: calc(100% + 60px);
-        }
+.ios,
+.android {
+  .support-atom-wrapper {
+    display: none;
+  }
+  .element--immersive {
+    @include mq($until: tablet) {
+      width: 100vw !important;
+      position: relative;
+      left: 50% !important;
+      right: 50% !important;
+      margin-left: -50vw !important;
+      margin-right: -50vw !important;
     }
-    
-    //remove dark mode padding in apps
-    figure.element.element-atom, figure.interactive.interactive-atom.interactive--loading {
-        padding: 0 !important;
+    @include mq(tablet) {
+      transform: translateX(-20px);
+      width: calc(100% + 60px);
     }
+  }
+
+  //remove dark mode padding in apps
+  figure.element.element-atom,
+  figure.interactive.interactive-atom.interactive--loading {
+    padding: 0 !important;
+  }
 }
